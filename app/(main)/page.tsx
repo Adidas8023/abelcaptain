@@ -1,3 +1,4 @@
+ /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 import { BlogPosts } from '~/app/(main)/blog/BlogPosts'
@@ -10,7 +11,7 @@ import { Container } from '~/components/ui/Container'
 import { getSettings } from '~/sanity/queries'
 
 export default async function BlogHomePage() {
-  const settings = await getSettings()
+  const settings: any = await getSettings() ?? {};
 
   return (
     <>
