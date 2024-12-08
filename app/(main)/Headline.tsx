@@ -80,9 +80,9 @@ export function Headline() {
         }}
       >
         <Balancer>
-          Hi I'am Abel
+          Hi I&apos;am Abel
           <PeekabooLink href="https://x.com/Cyrpto_Captain">@Cyrpto_Captain</PeekabooLink>
-          Welcome to my personal website! Here you can learn about blockchain, cryptocurrency, creative tools, and various interesting internet products. Don't forget to subscribe and follow my channels!
+          Welcome to my personal website! Here you can learn about blockchain, cryptocurrency, creative tools, and various interesting internet products. Don&apos;t forget to subscribe and follow my channels!
         </Balancer>
       </motion.p>
       <motion.div
