@@ -120,7 +120,7 @@ export function Headline() {
         <SocialLink
           href="https://abel.lemonsqueezy.com/"
           aria-label="Lemon Squeezy"
-          platform="lemonsqueezy"
+          platform="telegram"
         />
         <SocialLink href="/feed.xml" platform="rss" aria-label="RSS Feed" />
       </motion.div>
