@@ -14,11 +14,11 @@ import { seo } from '~/lib/seo'
 export const metadata: Metadata = {
   metadataBase: seo.url,
   title: {
-    template: '%s | Cali Castle',
+    template: '%s | Abel船长',
     default: seo.title,
   },
   description: seo.description,
-  keywords: 'Cali,Cali Castle,郭晓楠,佐玩,创始人,CEO,开发者,设计师,细节控,创新',
+  keywords: 'Abel船长,Abel Captain,产品经理,AI,区块链,效率工具,互联网探索,数字航海,人工智能,区块链分析,生产力工具',
   manifest: '/site.webmanifest',
   robots: {
     index: true,
@@ -34,17 +34,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: {
       default: seo.title,
-      template: '%s | Cali Castle',
+      template: '%s | Abel船长',
     },
     description: seo.description,
-    siteName: 'Cali Castle',
+    siteName: 'Abel船长的数字航海日志',
     locale: 'zh_CN',
     type: 'website',
-    url: 'https://cali.so',
+    url: 'https://abelcaptain.com',
   },
   twitter: {
-    site: '@thecalicastle',
-    creator: '@thecalicastle',
+    site: '@Cyrpto_Captain',
+    creator: '@Cyrpto_Captain',
     card: 'summary_large_image',
     title: seo.title,
     description: seo.description,
