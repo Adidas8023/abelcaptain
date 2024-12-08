@@ -80,9 +80,9 @@ export function Headline() {
         }}
       >
         <Balancer>
-          Hi I‘am Abel
+          Hi I'am Abel
           <PeekabooLink href="https://x.com/Cyrpto_Captain">@Cyrpto_Captain</PeekabooLink>
-          Welcome to my personal website! Here you can learn about blockchain, cryptocurrency, creative tools, and various interesting internet products. Don't forget to subscribe and follow my different channels!
+          Welcome to my personal website! Here you can learn about blockchain, cryptocurrency, creative tools, and various interesting internet products. Don't forget to subscribe and follow my channels!
         </Balancer>
       </motion.p>
       <motion.div
@@ -103,11 +103,6 @@ export function Headline() {
           platform="twitter"
         />
         <SocialLink
-          href="https://cali.so/youtube"
-          aria-label="My YouTube"
-          platform="youtube"
-        />
-        <SocialLink
           href="https://space.bilibili.com/233661707"
           aria-label="My Bilibili"
           platform="bilibili"
@@ -118,11 +113,16 @@ export function Headline() {
           platform="github"
         />
         <SocialLink
-          href="https://abel.lemonsqueezy.com/"
-          aria-label="Lemon Squeezy"
+          href="https://cali.so/tg"
+          aria-label="My Telegram"
           platform="telegram"
         />
         <SocialLink href="/feed.xml" platform="rss" aria-label="RSS Feed" />
+        <SocialLink
+          href="mailto:hi@cali.so"
+          aria-label="My Email"
+          platform="mail"
+        />
       </motion.div>
     </div>
   )
