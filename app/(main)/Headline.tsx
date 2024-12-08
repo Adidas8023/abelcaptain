@@ -10,7 +10,7 @@ import { SocialLink } from '~/components/links/SocialLink'
 function Developer() {
   return (
     <span className="group">
-      <span className="font-mono">&lt;</span>Product Manager
+      <span className="font-mono">&lt;</span>开发者
       <span className="font-mono">/&gt;</span>
       <span className="invisible inline-flex text-zinc-300 before:content-['|'] group-hover:visible group-hover:animate-typing dark:text-zinc-500" />
     </span>
@@ -19,16 +19,14 @@ function Developer() {
 
 function Designer() {
   return (
-    <span className="group relative">
-      <span className="bg-black/5 p-1 dark:bg-white/5">
-        <span className="pointer-events-none absolute inset-0 border border-lime-700/90 opacity-70 group-hover:border-dashed group-hover:opacity-100 dark:border-lime-400/90">
-          <span className="absolute -left-[3.5px] -top-[3.5px] size-1.5 border border-lime-700 bg-zinc-50 dark:border-lime-400" />
-          <span className="absolute -bottom-[3.5px] -right-[3.5px] size-1.5 border border-lime-700 bg-zinc-50 dark:border-lime-400" />
-          <span className="absolute -bottom-[3.5px] -left-[3.5px] size-1.5 border border-lime-700 bg-zinc-50 dark:border-lime-400" />
-          <span className="absolute -right-[3.5px] -top-[3.5px] size-1.5 border border-lime-700 bg-zinc-50 dark:border-lime-400" />
-        </span>
-        Crypto Lover
+    <span className="group relative bg-black/5 p-1 dark:bg-white/5">
+      <span className="pointer-events-none absolute inset-0 border border-lime-700/90 opacity-70 group-hover:border-dashed group-hover:opacity-100 dark:border-lime-400/90">
+        <span className="absolute -left-[3.5px] -top-[3.5px] size-1.5 border border-lime-700 bg-zinc-50 dark:border-lime-400" />
+        <span className="absolute -bottom-[3.5px] -right-[3.5px] size-1.5 border border-lime-700 bg-zinc-50 dark:border-lime-400" />
+        <span className="absolute -bottom-[3.5px] -left-[3.5px] size-1.5 border border-lime-700 bg-zinc-50 dark:border-lime-400" />
+        <span className="absolute -right-[3.5px] -top-[3.5px] size-1.5 border border-lime-700 bg-zinc-50 dark:border-lime-400" />
       </span>
+      设计师
     </span>
   )
 }
@@ -37,7 +35,7 @@ function OCD() {
   return (
     <span className="group inline-flex items-center">
       <SparkleIcon className="mr-1 inline-flex transform-gpu transition-transform duration-500 group-hover:rotate-180" />
-      <span>Productivity</span>
+      <span>细节控</span>
     </span>
   )
 }
@@ -46,7 +44,7 @@ function Founder() {
   return (
     <span className="group inline-flex items-center">
       <UserSecurityIcon className="mr-1 inline-flex group-hover:fill-zinc-600/20 dark:group-hover:fill-zinc-200/20" />
-      <span>Internet Pirate</span>
+      <span>创始人</span>
     </span>
   )
 }
@@ -82,9 +80,10 @@ export function Headline() {
         }}
       >
         <Balancer>
-          Hi I&apos;am Abel
-          <PeekabooLink href="https://x.com/Cyrpto_Captain">@Cyrpto_Captain</PeekabooLink>
-          Welcome to my personal website! Here you can learn about blockchain, cryptocurrency, creative tools, and various interesting internet products. Don&apos;t forget to subscribe and follow my channels!
+          我是 Cali，
+          <PeekabooLink href="https://zolplay.com">佐玩</PeekabooLink>
+          创始人，目前带领着佐玩致力于创造一个充满创造力的工作环境，同时鼓励团队创造影响世界的产品。
+          我热爱开发，设计，创新，享受生活，以及在未知领域中探索。
         </Balancer>
       </motion.p>
       <motion.div
@@ -100,29 +99,34 @@ export function Headline() {
         }}
       >
         <SocialLink
-          href="https://x.com/Cyrpto_Captain"
-          aria-label="My Twitter"
+          href="https://cali.so/twitter"
+          aria-label="我的推特"
           platform="twitter"
         />
         <SocialLink
-          href="https://space.bilibili.com/233661707"
-          aria-label="My Bilibili"
+          href="https://cali.so/youtube"
+          aria-label="我的 YouTube"
+          platform="youtube"
+        />
+        <SocialLink
+          href="https://cali.so/bilibili"
+          aria-label="我的 Bilibili"
           platform="bilibili"
         />
         <SocialLink
-          href="https://github.com/Adidas8023"
-          aria-label="My GitHub"
+          href="https://cali.so/github"
+          aria-label="我的 GitHub"
           platform="github"
         />
         <SocialLink
           href="https://cali.so/tg"
-          aria-label="My Telegram"
+          aria-label="我的 Telegram"
           platform="telegram"
         />
-        <SocialLink href="/feed.xml" platform="rss" aria-label="RSS Feed" />
+        <SocialLink href="/feed.xml" platform="rss" aria-label="RSS 订阅" />
         <SocialLink
           href="mailto:hi@cali.so"
-          aria-label="My Email"
+          aria-label="我的邮箱"
           platform="mail"
         />
       </motion.div>

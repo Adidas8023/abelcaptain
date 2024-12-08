@@ -26,14 +26,10 @@ export function prettifyNumber(n: number, inChinese = false): string {
     }
   }
 
-  if (n >= 1000000000) {
-    return toFixed(n / 1000000000) + 'B'
-  }
-  if (n >= 1000000) {
-    return toFixed(n / 1000000) + 'M'
-  }
-  if (n >= 1000) {
-    return toFixed(n / 1000) + 'K'
+  if (Math.abs(n) >= 1000000) {
+    return toFixed(n / 1000000) + 'm'
+  } else if (Math.abs(n) >= 1000) {
+    return toFixed(n / 1000) + 'k'
   } else {
     return Intl.NumberFormat('en-US').format(n)
   }

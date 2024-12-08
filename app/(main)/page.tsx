@@ -1,4 +1,3 @@
- /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 import { BlogPosts } from '~/app/(main)/blog/BlogPosts'
@@ -11,7 +10,7 @@ import { Container } from '~/components/ui/Container'
 import { getSettings } from '~/sanity/queries'
 
 export default async function BlogHomePage() {
-  const settings: any = await getSettings() ?? {};
+  const settings = await getSettings()
 
   return (
     <>
@@ -26,7 +25,7 @@ export default async function BlogHomePage() {
           <div className="flex flex-col gap-6 pt-6">
             <h2 className="flex items-center text-sm font-semibold text-zinc-900 dark:text-zinc-100">
               <PencilSwooshIcon className="h-5 w-5 flex-none" />
-              <span className="ml-2">Recent Posts</span>
+              <span className="ml-2">近期文章</span>
             </h2>
             <BlogPosts />
           </div>
