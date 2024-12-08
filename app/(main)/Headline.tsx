@@ -80,10 +80,9 @@ export function Headline() {
         }}
       >
         <Balancer>
-          我是 Cali，
-          <PeekabooLink href="https://zolplay.com">佐玩</PeekabooLink>
-          创始人，目前带领着佐玩致力于创造一个充满创造力的工作环境，同时鼓励团队创造影响世界的产品。
-          我热爱开发，设计，创新，享受生活，以及在未知领域中探索。
+          我是 Abel
+          <PeekabooLink href="https://x.com/Cyrpto_Captain">@Cyrpto_Captain</PeekabooLink>
+          欢迎来到我的个人网站！这里你可以学到区块链，加密货币和创意工具以及各种各样有趣的互联网产品知识，别忘记订阅和关注我的各种频道哦~
         </Balancer>
       </motion.p>
       <motion.div
