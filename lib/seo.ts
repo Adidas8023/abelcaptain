@@ -1,7 +1,7 @@
 export const seo = {
-  title: 'Cali Castle | 开发者、设计师、细节控、创始人',
+  title: 'Abel Captain | Product Manager, Designer, Productivity Expert, Internet Pirate',
   description:
-    '我叫 Cali，一名开发者，设计师，细节控，同时也是佐玩创始人，目前带领着佐玩致力于创造一个充满创造力的工作环境，同时鼓励团队创造影响世界的产品。',
+    'Ahoy, adventurers! I&apos;m Captain Abel, welcome to my digital sailing log! Here, I&apos;ll share my internet adventure stories and exploration experiences. Want to know how to find the latest information treasures on the INTERNET? Or how to cleverly apply for overseas subscription services? Don&apos;t worry, I&apos;ve got everything ready for you :) I also have a tech shop filled with various amazing tools I&apos;ve discovered. So, hoist the sails, and let&apos;s explore this miraculous digital continent together!',
   url: new URL(
     process.env.NODE_ENV === 'production'
       ? 'https://cali.so'
