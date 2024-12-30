@@ -16,9 +16,9 @@ import {
 import logo from './../apple-icon.png'
 
 const navigation = [
-  { name: '仪表盘', href: '', icon: DashboardIcon },
-  { name: '评论', href: '/comments', icon: NewCommentIcon },
-  { name: '订阅', href: '/subscribers', icon: SubscriberIcon },
+  { name: 'Dashboard', href: '', icon: DashboardIcon },
+  { name: 'Comments', href: '/comments', icon: NewCommentIcon },
+  { name: 'Subscribers', href: '/subscribers', icon: SubscriberIcon },
   { name: 'Newsletters', href: '/newsletters', icon: TiltedSendIcon },
 ]
 
@@ -73,7 +73,7 @@ export function Sidebar() {
                 className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50 dark:text-slate-50 dark:hover:bg-slate-800"
               >
                 <HomeIcon className="h-5 w-5" aria-hidden="true" />
-                返回前台
+                Back to Frontend
               </Link>
             </li>
           </ul>

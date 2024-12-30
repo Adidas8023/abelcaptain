@@ -55,8 +55,8 @@ async function TotalPageViews() {
   return (
     <span className="flex items-center justify-center gap-1 text-xs text-zinc-500 dark:text-zinc-400 md:justify-start">
       <UsersIcon className="h-4 w-4" />
-      <span title={`${Intl.NumberFormat('en-US').format(views)}次浏览`}>
-        总浏览量&nbsp;
+      <span title={`${Intl.NumberFormat('en-US').format(views)} views`}>
+        Total Views&nbsp;
         <span className="font-medium">{prettifyNumber(views, true)}</span>
       </span>
     </span>
@@ -90,7 +90,7 @@ async function LastVisitorInfo() {
     <span className="flex items-center justify-center gap-1 text-xs text-zinc-500 dark:text-zinc-400 md:justify-start">
       <CursorClickIcon className="h-4 w-4" />
       <span>
-        最近访客来自&nbsp;
+        Last visitor from&nbsp;
         {[lastVisitor.city, lastVisitor.country].filter(Boolean).join(', ')}
       </span>
       <span className="font-medium">{lastVisitor.flag}</span>
