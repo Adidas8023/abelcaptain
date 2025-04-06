@@ -108,27 +108,10 @@ export const getSettingsQuery = () =>
       url,
       description,
       icon
-    },
-    "heroPhotos": heroPhotos[].asset->url,
-    "resume": resume[]{
-      company,
-      title,
-      start,
-      end,
-      "logo": logo.asset->url
     }
 }`
+
 export const getSettings = () =>
   client.fetch<{
     projects: Project[] | null
-    heroPhotos?: string[] | null
-    resume?:
-      | {
-          company: string
-          title: string
-          logo: string
-          start: string
-          end?: string
-        }[]
-      | null
   }>(getSettingsQuery())
