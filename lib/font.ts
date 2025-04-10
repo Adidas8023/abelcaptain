@@ -1,4 +1,4 @@
-import { Manrope } from 'next/font/google'
+import { Inter, Manrope, Silkscreen } from 'next/font/google'
 
 const sansFont = Manrope({
   subsets: ['latin'],
@@ -7,4 +7,18 @@ const sansFont = Manrope({
   display: 'swap',
 })
 
-export { sansFont }
+const interFont = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const silkscreenFont = Silkscreen({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-silkscreen',
+  display: 'swap',
+})
+
+export { sansFont, interFont, silkscreenFont }

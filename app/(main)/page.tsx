@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { BlogPosts } from '~/app/(main)/blog/BlogPosts'
-import { Headline } from '~/app/(main)/Headline'
+import { Hero } from '~/app/(main)/Hero'
 import { Newsletter } from '~/app/(main)/Newsletter'
 import { PencilSwooshIcon } from '~/assets'
 import { Container } from '~/components/ui/Container'
@@ -12,9 +12,7 @@ export default async function BlogHomePage() {
 
   return (
     <>
-      <Container className="mt-10">
-        <Headline />
-      </Container>
+      <Hero />
 
       <Container className="mt-24 md:mt-28">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">

@@ -306,6 +306,7 @@ module.exports = {
       colors: {
         primary: {
           900: '#000212',
+          foreground: '#ffffff',
         },
         // light mode
         tremor: {
@@ -367,14 +368,28 @@ module.exports = {
             inverted: '#000000', // black
           },
         },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
       },
 
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
+        inter: ['var(--font-inter)', ...fontFamily.sans],
+        silkscreen: ['var(--font-silkscreen)', ...fontFamily.sans],
       },
 
       animation: {
         typing: 'typing-pulse 1.35s steps(1, end) infinite',
+        rainbow: 'rainbow 3s linear infinite',
+      },
+
+      keyframes: {
+        rainbow: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
       },
 
       boxShadow: {
@@ -404,6 +419,13 @@ module.exports = {
         'tremor-title': ['1.125rem', { lineHeight: '1.75rem' }],
         'tremor-metric': ['1.875rem', { lineHeight: '2.25rem' }],
       },
+      cssVariables: {
+        "--color-1": "261, 56%, 67%",
+        "--color-2": "319, 81%, 59%",
+        "--color-3": "0, 100%, 67%",
+        "--color-4": "50, 100%, 50%",
+        "--color-5": "130, 64%, 48%",
+      }
     },
   },
   safelist: [
