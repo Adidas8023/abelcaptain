@@ -1,17 +1,50 @@
 import './blog/[slug]/blog.css'
 
 import { Analytics } from '@vercel/analytics/react'
-import { Suspense } from 'react'
 
 import { Footer } from '~/app/(main)/Footer'
 import { Header } from '~/app/(main)/Header'
 import { QueryProvider } from '~/app/QueryProvider'
+import { kvKeys } from '~/config/kv'
+import { env } from '~/env.mjs'
+import { redis } from '~/lib/redis'
 
-export default function BlogLayout({
+async function getPageViews() {
+  if (env.VERCEL_ENV === 'production') {
+    return redis.incr(kvKeys.totalPageViews)
+  }
+  return 345678
+}
+
+type VisitorGeolocation = {
+  country: string
+  city?: string
+  flag: string
+}
+
+async function getLastVisitor() {
+  if (env.VERCEL_ENV === 'production') {
+    const [lv, cv] = await redis.mget<VisitorGeolocation[]>(
+      kvKeys.lastVisitor,
+      kvKeys.currentVisitor
+    )
+    await redis.set(kvKeys.lastVisitor, cv)
+    return lv
+  }
+  return {
+    country: 'US',
+    flag: '🇺🇸',
+  }
+}
+
+export default async function BlogLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const pageViews = await getPageViews()
+  const visitorInfo = await getLastVisitor()
+
   return (
     <>
       <div className="pointer-events-none fixed inset-0 select-none bg-white dark:bg-black bg-top bg-repeat z-[-1]" />
@@ -27,9 +60,7 @@ export default function BlogLayout({
         <div className="relative text-zinc-800 dark:text-zinc-200">
           <Header />
           <main className="min-h-screen">{children}</main>
-          <Suspense>
-            <Footer />
-          </Suspense>
+          <Footer pageViews={pageViews} visitorInfo={visitorInfo} />
         </div>
       </QueryProvider>
 
