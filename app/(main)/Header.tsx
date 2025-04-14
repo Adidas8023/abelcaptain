@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import {
   SignedIn,
   SignedOut,
@@ -7,19 +8,15 @@ import {
   UserButton,
   useUser,
 } from '@clerk/nextjs'
-import { clsxm } from '@zolplay/utils'
 import {
   AnimatePresence,
   motion,
-  useMotionTemplate,
-  useMotionValue,
 } from 'framer-motion'
 import { usePathname } from 'next/navigation'
-import React from 'react'
-import { cn } from '~/lib/utils'
+import { useEffect, useRef } from 'react'
 
 import { NavigationBar } from '~/app/(main)/NavigationBar'
-import { ThemeSwitcher } from '~/app/(main)/ThemeSwitcher'
+import { ThemeSwitcher } from './ThemeSwitcher'
 import {
   GitHubBrandIcon,
   GoogleBrandIcon,
@@ -29,18 +26,17 @@ import {
 import { Avatar } from '~/components/Avatar'
 import { Container } from '~/components/ui/Container'
 import { Tooltip } from '~/components/ui/Tooltip'
-import { url } from '~/lib'
 import { clamp } from '~/lib/math'
+import { cn } from '~/lib/utils'
+import { url } from '~/lib'
+
 export function Header() {
   const isHomePage = usePathname() === '/'
+  const headerRef = useRef<HTMLDivElement>(null)
+  const isInitial = useRef(true)
 
-  const headerRef = React.useRef<HTMLDivElement>(null)
-  const isInitial = React.useRef(true)
-
-  React.useEffect(() => {
-    const upDelay = 64
-
-    function setProperty(property: string, value: string | null) {
+  useEffect(() => {
+    function setProperty(property: string, value: string) {
       document.documentElement.style.setProperty(property, value)
     }
 
@@ -53,7 +49,7 @@ export function Header() {
         return
       }
 
-      const { top, height } = headerRef.current.getBoundingClientRect()
+      const { top } = headerRef.current.getBoundingClientRect()
       const scrollY = clamp(
         window.scrollY,
         0,
