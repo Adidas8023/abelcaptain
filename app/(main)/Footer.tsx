@@ -1,19 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import React, { use } from 'react'
+import React from 'react'
 
 import { CursorClickIcon, UsersIcon } from '~/assets'
 import { PeekabooLink } from '~/components/links/PeekabooLink'
 import { Container } from '~/components/ui/Container'
-import { count, isNotNull } from 'drizzle-orm'
-import { kvKeys } from '~/config/kv'
 import { navigationItems } from '~/config/nav'
-import { db } from '~/db'
-import { subscribers } from '~/db/schema'
-import { env } from '~/env.mjs'
 import { prettifyNumber } from '~/lib/math'
-import { redis } from '~/lib/redis'
 
 function NavLink({
   href,
@@ -46,16 +40,17 @@ function Links() {
   )
 }
 
-async function getPageViews() {
-  if (env.VERCEL_ENV === 'production') {
-    return redis.incr(kvKeys.totalPageViews)
-  }
-  return 345678
+type VisitorGeolocation = {
+  country: string
+  city?: string
+  flag: string
 }
 
-function TotalPageViews() {
-  const views = use(getPageViews())
+interface TotalPageViewsProps {
+  views: number;
+}
 
+function TotalPageViews({ views }: TotalPageViewsProps) {
   return (
     <span className="flex items-center justify-center gap-1 text-xs text-zinc-500 dark:text-zinc-400 md:justify-start">
       <UsersIcon className="h-4 w-4" />
@@ -67,30 +62,11 @@ function TotalPageViews() {
   )
 }
 
-type VisitorGeolocation = {
-  country: string
-  city?: string
-  flag: string
+interface LastVisitorInfoProps {
+  lastVisitor: VisitorGeolocation | null;
 }
 
-async function getLastVisitor() {
-  if (env.VERCEL_ENV === 'production') {
-    const [lv, cv] = await redis.mget<VisitorGeolocation[]>(
-      kvKeys.lastVisitor,
-      kvKeys.currentVisitor
-    )
-    await redis.set(kvKeys.lastVisitor, cv)
-    return lv
-  }
-  return {
-    country: 'US',
-    flag: '🇺🇸',
-  }
-}
-
-function LastVisitorInfo() {
-  const lastVisitor = use(getLastVisitor())
-
+function LastVisitorInfo({ lastVisitor }: LastVisitorInfoProps) {
   if (!lastVisitor) {
     return null
   }
@@ -107,7 +83,12 @@ function LastVisitorInfo() {
   )
 }
 
-export function Footer() {
+interface FooterProps {
+  pageViews: number;
+  visitorInfo: VisitorGeolocation | null;
+}
+
+export function Footer({ pageViews, visitorInfo }: FooterProps) {
   return (
     <footer className="mt-16 bg-white dark:bg-black">
       <Container.Outer>
@@ -125,12 +106,8 @@ export function Footer() {
           </Container.Inner>
           <Container.Inner className="mt-6">
             <div className="flex flex-col items-center justify-start gap-2 sm:flex-row">
-              <React.Suspense>
-                <TotalPageViews />
-              </React.Suspense>
-              <React.Suspense>
-                <LastVisitorInfo />
-              </React.Suspense>
+              <TotalPageViews views={pageViews} />
+              <LastVisitorInfo lastVisitor={visitorInfo} />
             </div>
           </Container.Inner>
         </div>
