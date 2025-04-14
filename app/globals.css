@@ -24,10 +24,10 @@ body {
 }
 
 html.light {
-  --bg-color: theme('colors.zinc.50');
+  --bg-color: white;
 }
 html.dark {
-  --bg-color: theme('colors.primary.900');
+  --bg-color: black;
 }
 
 [data-radix-popper-content-wrapper] {
@@ -50,5 +50,76 @@ html.dark {
   }
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes threebody1 {
+  0%, 100% {
+    transform: translate(80px, 10px) scale(1);
+  }
+  33% {
+    transform: translate(40px, 30px) scale(0.9);
+  }
+  66% {
+    transform: translate(60px, -20px) scale(1.1);
+  }
+}
+
+@keyframes threebody2 {
+  0%, 100% {
+    transform: translate(50px, -20px) scale(1);
+  }
+  33% {
+    transform: translate(90px, -10px) scale(1.1);
+  }
+  66% {
+    transform: translate(70px, 25px) scale(0.9);
+  }
+}
+
+@keyframes threebody3 {
+  0%, 100% {
+    transform: translate(65px, 15px) scale(1);
+  }
+  33% {
+    transform: translate(85px, -25px) scale(1.1);
+  }
+  66% {
+    transform: translate(45px, 10px) scale(0.9);
+  }
+}
+
+@keyframes techBeam {
+  0%, 100% {
+    opacity: 0.2;
+    transform: rotate(var(--rotation)) scaleY(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: rotate(var(--rotation)) scaleY(1.2);
+  }
+}
+
+@keyframes techParticle {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(var(--tx), var(--ty)) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--tx) * 2), calc(var(--ty) * 2)) scale(0.8);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

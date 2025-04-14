@@ -12,31 +12,63 @@ import { navigationItems } from '~/config/nav'
 function NavItem({
   href,
   children,
+  external,
+  dropdown,
 }: {
-  href: string
+  href?: string
   children: React.ReactNode
+  external?: boolean
+  dropdown?: Array<{ href: string; text: string }>
 }) {
-  const isActive = usePathname() === href
+  const pathname = usePathname()
+  const isActive = href ? pathname === href : false
 
   return (
-    <li>
-      <Link
-        href={href}
-        className={clsxm(
-          'relative block whitespace-nowrap px-3 py-2 transition',
-          isActive
-            ? 'text-lime-600 dark:text-lime-400'
-            : 'hover:text-lime-600 dark:hover:text-lime-400'
-        )}
-      >
-        {children}
-        {isActive && (
-          <motion.span
-            className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-lime-700/0 via-lime-700/70 to-lime-700/0 dark:from-lime-400/0 dark:via-lime-400/40 dark:to-lime-400/0"
-            layoutId="active-nav-item"
-          />
-        )}
-      </Link>
+    <li className="relative">
+      {href ? (
+        <Link
+          href={href}
+          className={clsxm(
+            'relative block whitespace-nowrap px-3 py-2 transition',
+            isActive
+              ? 'text-[#8855FF] dark:text-[#c299ff]'
+              : 'hover:text-[#8855FF] dark:hover:text-[#c299ff]'
+          )}
+          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          {children}
+          {isActive && (
+            <motion.span
+              className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-[#8855FF]/0 via-[#8855FF]/70 to-[#8855FF]/0 dark:from-[#c299ff]/0 dark:via-[#c299ff]/40 dark:to-[#c299ff]/0"
+              layoutId="active-nav-item"
+            />
+          )}
+        </Link>
+      ) : (
+        <div className="group/dropdown relative block whitespace-nowrap px-3 py-2 transition hover:text-[#8855FF] dark:hover:text-[#c299ff] cursor-pointer">
+          {children}
+          {dropdown && (
+            <div className="absolute left-1/2 top-full -translate-x-1/2 pt-2 opacity-0 pointer-events-none transition-all duration-200 group-hover/dropdown:opacity-100 group-hover/dropdown:pointer-events-auto">
+              <div className="rounded-xl bg-gradient-to-b from-zinc-50/70 to-white/90 p-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md dark:from-zinc-900/70 dark:to-zinc-800/90 dark:ring-zinc-100/10">
+                <ul className="space-y-1">
+                  {dropdown.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        className="block whitespace-nowrap px-3 py-2 text-sm text-zinc-600 transition hover:text-[#8855FF] dark:text-zinc-400 dark:hover:text-[#c299ff]"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.text}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </li>
   )
 }
@@ -79,10 +111,15 @@ function Desktop({
         aria-hidden="true"
       />
 
-      <ul className="flex bg-transparent px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200 ">
-        {navigationItems.map(({ href, text }) => (
-          <NavItem key={href} href={href}>
-            {text}
+      <ul className="flex bg-transparent px-3 text-sm font-medium text-zinc-800 dark:text-zinc-200">
+        {navigationItems.map((item) => (
+          <NavItem
+            key={item.text}
+            href={item.href}
+            external={item.external}
+            dropdown={item.dropdown}
+          >
+            {item.text}
           </NavItem>
         ))}
       </ul>
@@ -93,15 +130,57 @@ function Desktop({
 function MobileNavItem({
   href,
   children,
+  external,
+  dropdown,
 }: {
-  href: string
+  href?: string
   children: React.ReactNode
+  external?: boolean
+  dropdown?: Array<{ href: string; text: string }>
 }) {
+  if (dropdown) {
+    return (
+      <li className="py-2">
+        <div className="block text-base text-zinc-800 dark:text-zinc-300">
+          {children}
+        </div>
+        <ul className="ml-4 mt-2 space-y-2">
+          {dropdown.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="block text-sm text-zinc-600 transition hover:text-[#8855FF] dark:text-zinc-400 dark:hover:text-[#c299ff]"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {item.text}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </li>
+    )
+  }
+
+  if (!href) {
+    return (
+      <li>
+        <div className="block py-2 text-zinc-800 dark:text-zinc-300">
+          {children}
+        </div>
+      </li>
+    )
+  }
+
   return (
     <li>
-      <Popover.Button as={Link} href={href} className="block py-2">
+      <Link
+        href={href}
+        className="block py-2 text-zinc-800 dark:text-zinc-300 hover:text-[#8855FF] dark:hover:text-[#c299ff]"
+        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      >
         {children}
-      </Popover.Button>
+      </Link>
     </li>
   )
 }
@@ -151,36 +230,49 @@ function Mobile(props: PopoverProps<'div'>) {
             focus
             className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-gradient-to-b from-zinc-100/75 to-white p-8 ring-1 ring-zinc-900/5 dark:from-zinc-900/50 dark:to-zinc-900 dark:ring-zinc-800"
           >
-            <div className="flex flex-row-reverse items-center justify-between">
-              <Popover.Button aria-label="关闭菜单" className="-m-1 p-1">
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  className="h-6 w-6 text-zinc-500 dark:text-zinc-400"
-                >
-                  <path
-                    d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Popover.Button>
-              <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-                站内导航
-              </h2>
-            </div>
-            <nav className="mt-6">
-              <ul className="-my-2 divide-y divide-zinc-500/20 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-                {navigationItems.map(({ href, text }) => (
-                  <MobileNavItem key={href} href={href}>
-                    {text}
-                  </MobileNavItem>
-                ))}
-              </ul>
-            </nav>
+            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+            {({ close }) => (
+              <>
+                <div className="flex flex-row-reverse items-center justify-between">
+                  <Popover.Button
+                    aria-label="关闭菜单"
+                    className="-m-1 p-1"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      className="h-6 w-6 text-zinc-500 dark:text-zinc-400"
+                    >
+                      <path
+                        d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Popover.Button>
+                  <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+                    站内导航
+                  </h2>
+                </div>
+                <nav className="mt-6">
+                  <ul className="-my-2 divide-y divide-zinc-500/20 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                    {navigationItems.map((item) => (
+                      <MobileNavItem
+                        key={item.text}
+                        href={item.href}
+                        external={item.external}
+                        dropdown={item.dropdown}
+                      >
+                        {item.text}
+                      </MobileNavItem>
+                    ))}
+                  </ul>
+                </nav>
+              </>
+            )}
           </Popover.Panel>
         </Transition.Child>
       </Transition.Root>

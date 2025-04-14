@@ -21,4 +21,4 @@ const silkscreenFont = Silkscreen({
   display: 'swap',
 })
 
-export { sansFont, interFont, silkscreenFont }
+export { interFont, sansFont, silkscreenFont }

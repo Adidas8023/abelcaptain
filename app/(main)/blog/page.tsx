@@ -6,16 +6,16 @@ import { Container } from '~/components/ui/Container'
 import { BlogPosts } from './BlogPosts'
 
 const description =
-  '写博客文章是我比较喜欢的沉淀分享方式，我希望能够把好用的技术知识传递给更多的人。我比较喜欢围绕着技术为主的话题，但是也会写一些非技术的话题，比如设计、创业、企业管理、生活随笔等等。'
+  '欢迎登上我的博客航线！作为Abel船长，我在这片数字海洋上航行多年，搜集了众多珍贵的知识宝藏。在这里，你将发现关于最新技术工具的使用指南、各种薅羊毛省钱攻略、区块链投资策略以及AI工具应用的深度解析。我的航海日志主要记录这些领域的探索心得，希望能帮助更多的冒险者在信息海洋中寻找到有价值的宝藏！'
 export const metadata = {
-  title: '我的博客',
+  title: '船长的航海日志',
   description,
   openGraph: {
-    title: '我的博客',
+    title: '船长的航海日志',
     description,
   },
   twitter: {
-    title: '我的博客',
+    title: '船长的航海日志',
     description,
     card: 'summary_large_image',
   },
@@ -27,7 +27,7 @@ export default function BlogPage() {
     <Container className="mt-16 sm:mt-24">
       <header className="max-w-2xl">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-          欢迎光临我的博客
+          船长的航海日志
         </h1>
         <p className="my-6 text-base text-zinc-600 dark:text-zinc-400">
           <Balancer>{description}</Balancer>

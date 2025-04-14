@@ -81,51 +81,53 @@ export function Newsletter({ subCount }: { subCount?: string }) {
         <TiltedSendIcon className="h-5 w-5 flex-none" />
         <span className="ml-2">动态更新</span>
       </h2>
-      <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-400 md:text-sm">
-        <span>喜欢我的内容的话不妨订阅支持一下 🫶</span>
-        <br />
-        {subCount && (
-          <span>
-            加入其他 <span className="font-medium">{subCount}</span> 位订阅者，
-          </span>
-        )}
-        <span>每月一封，随时可以取消订阅。</span>
-      </p>
-      <AnimatePresence mode="wait">
-        {!isSubscribed ? (
-          <motion.div
-            className="mt-6 flex h-10"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit="initial"
-          >
-            <input
-              type="email"
-              placeholder="你的邮箱"
-              aria-label="电子邮箱"
-              required
-              className="min-w-0 flex-auto appearance-none rounded-lg border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] placeholder:text-zinc-400 focus:border-lime-500 focus:outline-none focus:ring-4 focus:ring-lime-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-lime-400/50 dark:focus:ring-lime-400/5 sm:text-sm"
-              {...register('email')}
-            />
-            <Button
-              type="submit"
-              className="ml-2 flex-none"
-              disabled={isSubmitting}
+      <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xs text-zinc-600 dark:text-zinc-400 md:text-sm sm:max-w-[45%]">
+          <span>喜欢我的内容的话不妨订阅支持一下 🫶</span>
+          <br />
+          {subCount && (
+            <span>
+              加入其他 <span className="font-medium">{subCount}</span> 位订阅者，
+            </span>
+          )}
+          <span>每月一封，随时可以取消订阅。</span>
+        </p>
+        <AnimatePresence mode="wait">
+          {!isSubscribed ? (
+            <motion.div
+              className="flex h-10 sm:w-[45%]"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit="initial"
             >
-              订阅
-            </Button>
-          </motion.div>
-        ) : (
-          <motion.p
-            className="mt-6 h-10 text-center text-lg text-zinc-700 dark:text-zinc-300"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit="initial"
-          >
-            请查收订阅确认邮件 🥳
-          </motion.p>
-        )}
-      </AnimatePresence>
+              <input
+                type="email"
+                placeholder="你的邮箱"
+                aria-label="电子邮箱"
+                required
+                className="min-w-0 flex-auto appearance-none rounded-lg border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] placeholder:text-zinc-400 focus:border-purple-500 focus:outline-none focus:ring-4 focus:ring-purple-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-purple-400/50 dark:focus:ring-purple-400/5 sm:text-sm"
+                {...register('email')}
+              />
+              <Button
+                type="submit"
+                className="ml-2 flex-none"
+                disabled={isSubmitting}
+              >
+                订阅
+              </Button>
+            </motion.div>
+          ) : (
+            <motion.p
+              className="h-10 text-center text-lg text-zinc-700 dark:text-zinc-300 sm:w-[45%]"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit="initial"
+            >
+              请查收订阅确认邮件 🥳
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </div>
       <span id="newsletter-rewards" className="relative h-0 w-0" />
       {errors.email && (
         <p className="mt-2 text-xs font-medium text-red-600 dark:text-red-400">

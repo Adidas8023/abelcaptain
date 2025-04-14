@@ -3,7 +3,6 @@ import { groq } from 'next-sanity'
 import { getDate } from '~/lib/date'
 import { client } from '~/sanity/lib/client'
 import { type Post, type PostDetail } from '~/sanity/schemas/post'
-import { type Project } from '~/sanity/schemas/project'
 
 export const getAllLatestBlogPostSlugsQuery = () =>
   groq`
@@ -98,20 +97,3 @@ export const getBlogPost = (slug: string) =>
   client.fetch<PostDetail | undefined, { slug: string }>(getBlogPostQuery, {
     slug,
   })
-
-export const getSettingsQuery = () =>
-  groq`
-  *[_type == "settings"][0] {
-    "projects": projects[]->{
-      _id,
-      name,
-      url,
-      description,
-      icon
-    }
-}`
-
-export const getSettings = () =>
-  client.fetch<{
-    projects: Project[] | null
-  }>(getSettingsQuery())

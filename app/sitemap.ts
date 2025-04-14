@@ -1,27 +1,14 @@
-import { type MetadataRoute } from 'next'
+import { MetadataRoute } from 'next'
 
+import { env } from '~/env.mjs'
 import { url } from '~/lib'
 import { getAllLatestBlogPostSlugs } from '~/sanity/queries'
 
-export default async function sitemap() {
-  const staticMap = [
-    {
-      url: url('/').href,
-      lastModified: new Date(),
-    },
-    {
-      url: url('/blog').href,
-      lastModified: new Date(),
-    },
-    {
-      url: url('/projects').href,
-      lastModified: new Date(),
-    },
-    {
-      url: url('/guestbook').href,
-      lastModified: new Date(),
-    },
-  ] satisfies MetadataRoute.Sitemap
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const routes = ['', '/blog', '/guestbook', '/ama'].map((route) => ({
+    url: `${env.NEXT_PUBLIC_SITE_URL}${route}`,
+    lastModified: new Date().toISOString(),
+  }))
 
   const slugs = await getAllLatestBlogPostSlugs()
 
@@ -30,7 +17,7 @@ export default async function sitemap() {
     lastModified: new Date(),
   })) satisfies MetadataRoute.Sitemap
 
-  return [...staticMap, ...dynamicMap]
+  return [...routes, ...dynamicMap]
 }
 
 export const runtime = 'edge'
