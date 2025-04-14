@@ -1,6 +1,6 @@
 import { count, isNotNull } from 'drizzle-orm'
 import Link from 'next/link'
-import React from 'react'
+import React, { use } from 'react'
 
 import { CursorClickIcon, UsersIcon } from '~/assets'
 import { PeekabooLink } from '~/components/links/PeekabooLink'
@@ -44,13 +44,15 @@ function Links() {
   )
 }
 
-async function TotalPageViews() {
-  let views: number
+async function getPageViews() {
   if (env.VERCEL_ENV === 'production') {
-    views = await redis.incr(kvKeys.totalPageViews)
-  } else {
-    views = 345678
+    return redis.incr(kvKeys.totalPageViews)
   }
+  return 345678
+}
+
+function TotalPageViews() {
+  const views = use(getPageViews())
 
   return (
     <span className="flex items-center justify-center gap-1 text-xs text-zinc-500 dark:text-zinc-400 md:justify-start">
@@ -68,22 +70,27 @@ type VisitorGeolocation = {
   city?: string
   flag: string
 }
-async function LastVisitorInfo() {
-  let lastVisitor: VisitorGeolocation | undefined = undefined
+
+async function getLastVisitor() {
   if (env.VERCEL_ENV === 'production') {
     const [lv, cv] = await redis.mget<VisitorGeolocation[]>(
       kvKeys.lastVisitor,
       kvKeys.currentVisitor
     )
-    lastVisitor = lv
     await redis.set(kvKeys.lastVisitor, cv)
+    return lv
   }
+  return {
+    country: 'US',
+    flag: '🇺🇸',
+  }
+}
+
+function LastVisitorInfo() {
+  const lastVisitor = use(getLastVisitor())
 
   if (!lastVisitor) {
-    lastVisitor = {
-      country: 'US',
-      flag: '🇺🇸',
-    }
+    return null
   }
 
   return (
