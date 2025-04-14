@@ -1,27 +1,25 @@
-import { kvKeys } from '~/config/kv'
-import { env } from '~/env.mjs'
-import { redis } from '~/lib/redis'
-import { getLatestBlogPosts } from '~/sanity/queries'
+'use client'
+
+import { useState } from 'react'
+
+import { type Post } from '~/sanity/schemas/post'
 
 import { BlogPostCard } from './BlogPostCard'
 
 interface BlogPostsProps {
   limit?: number
+  initialPosts: Post[]
+  initialViews: number[]
 }
 
-export async function BlogPosts({ limit = 5 }: BlogPostsProps) {
-  const posts = await getLatestBlogPosts({ limit, forDisplay: true }) || []
-  const postIdKeys = posts.map(({ _id }) => kvKeys.postViews(_id))
-
-  let views: number[] = []
-  if (env.VERCEL_ENV === 'development') {
-    views = posts.map(() => Math.floor(Math.random() * 1000))
-  } else {
-    if (postIdKeys.length > 0) {
-      views = await redis.mget<number[]>(...postIdKeys)
-    }
+export function BlogPosts({ initialPosts = [], initialViews = [] }: BlogPostsProps) {
+  const [posts] = useState<Post[]>(initialPosts || [])
+  const [views] = useState<number[]>(initialViews || [])
+  
+  if (!posts || posts.length === 0) {
+    return <div className="col-span-2 text-center py-10 text-zinc-500">暂无博客文章</div>
   }
-
+  
   return (
     <>
       {posts.map((post, idx) => (

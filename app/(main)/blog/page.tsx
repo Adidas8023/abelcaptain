@@ -2,7 +2,11 @@ import Balancer from 'react-wrap-balancer'
 
 import { SocialLink } from '~/components/links/SocialLink'
 import { Container } from '~/components/ui/Container'
+import { kvKeys } from '~/config/kv'
+import { env } from '~/env.mjs'
+import { redis } from '~/lib/redis'
 import { getLatestBlogPosts } from '~/sanity/queries'
+import { type Post } from '~/sanity/schemas/post'
 
 import { BlogPosts } from './BlogPosts'
 
@@ -24,7 +28,28 @@ export const metadata = {
 
 // TODO: add pagination or infinite scroll
 export default async function BlogPage() {
-  await getLatestBlogPosts({ limit: 1 })
+  const limit = 20
+  let initialPosts: Post[] = []
+  let initialViews: number[] = []
+  
+  try {
+    initialPosts = await getLatestBlogPosts({ limit, forDisplay: true }) || []
+    
+    if (initialPosts.length > 0) {
+      const postIdKeys = initialPosts.map(({ _id }: { _id: string }) => kvKeys.postViews(_id))
+      
+      if (env.VERCEL_ENV === 'development') {
+        initialViews = initialPosts.map(() => Math.floor(Math.random() * 1000))
+      } else {
+        if (postIdKeys.length > 0) {
+          initialViews = await redis.mget<number[]>(...postIdKeys) || []
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching blog posts:', error)
+    // 出错时使用空数组
+  }
 
   return (
     <Container className="mt-16 sm:mt-24">
@@ -40,7 +65,7 @@ export default async function BlogPage() {
         </p>
       </header>
       <div className="mt-12 grid grid-cols-1 gap-6 sm:mt-20 lg:grid-cols-2 lg:gap-8">
-        <BlogPosts limit={20} />
+        <BlogPosts initialPosts={initialPosts} initialViews={initialViews} />
       </div>
     </Container>
   )

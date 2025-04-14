@@ -1,10 +1,12 @@
-import { count, isNotNull } from 'drizzle-orm'
+'use client'
+
 import Link from 'next/link'
 import React, { use } from 'react'
 
 import { CursorClickIcon, UsersIcon } from '~/assets'
 import { PeekabooLink } from '~/components/links/PeekabooLink'
 import { Container } from '~/components/ui/Container'
+import { count, isNotNull } from 'drizzle-orm'
 import { kvKeys } from '~/config/kv'
 import { navigationItems } from '~/config/nav'
 import { db } from '~/db'
@@ -105,14 +107,7 @@ function LastVisitorInfo() {
   )
 }
 
-export async function Footer() {
-  await db
-    .select({
-      subCount: count(),
-    })
-    .from(subscribers)
-    .where(isNotNull(subscribers.subscribedAt))
-
+export function Footer() {
   return (
     <footer className="mt-16 bg-white dark:bg-black">
       <Container.Outer>
