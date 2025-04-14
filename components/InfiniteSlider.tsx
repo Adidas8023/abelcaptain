@@ -4,8 +4,9 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
-import { cn } from '~/lib/utils'
+
 import { Tooltip } from '~/components/ui/Tooltip'
+import { cn } from '~/lib/utils'
 
 const PARTNERS = [
   {

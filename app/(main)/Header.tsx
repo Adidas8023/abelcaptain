@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import {
   SignedIn,
   SignedOut,
@@ -13,10 +12,10 @@ import {
   motion,
 } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import React from 'react'
 import { useEffect, useRef } from 'react'
 
 import { NavigationBar } from '~/app/(main)/NavigationBar'
-import { ThemeSwitcher } from './ThemeSwitcher'
 import {
   GitHubBrandIcon,
   GoogleBrandIcon,
@@ -26,9 +25,11 @@ import {
 import { Avatar } from '~/components/Avatar'
 import { Container } from '~/components/ui/Container'
 import { Tooltip } from '~/components/ui/Tooltip'
+import { url } from '~/lib'
 import { clamp } from '~/lib/math'
 import { cn } from '~/lib/utils'
-import { url } from '~/lib'
+
+import { ThemeSwitcher } from './ThemeSwitcher'
 
 export function Header() {
   const isHomePage = usePathname() === '/'

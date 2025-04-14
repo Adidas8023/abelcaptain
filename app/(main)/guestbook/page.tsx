@@ -1,4 +1,5 @@
 import { Container } from '~/components/ui/Container'
+
 import { NavigationCard } from './NavigationCard'
 
 const title = '航海图'

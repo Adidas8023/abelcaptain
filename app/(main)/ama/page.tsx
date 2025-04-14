@@ -1,6 +1,7 @@
 import Balancer from 'react-wrap-balancer'
 
 import { Container } from '~/components/ui/Container'
+
 import { ProjectCard } from './ProjectCard'
 
 const title = '关于我'

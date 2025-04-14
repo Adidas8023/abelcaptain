@@ -5,9 +5,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-import { AnimatedContent } from '../components/AnimatedContent'
 import { Container } from '~/components/ui/Container'
 import { RainbowButton } from '~/components/ui/rainbow-button'
+
+import { AnimatedContent } from '../components/AnimatedContent'
 
 const textVariants = {
   hidden: { opacity: 0 },

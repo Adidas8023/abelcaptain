@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { Hero } from '~/app/(main)/Hero'
 import { BlogPosts } from '~/app/(main)/blog/BlogPosts'
+import { Hero } from '~/app/(main)/Hero'
 import { Newsletter } from '~/app/(main)/Newsletter'
 import { AnimatedContent } from '~/app/components/AnimatedContent'
 import { PencilSwooshIcon } from '~/assets'
-import { Container } from '~/components/ui/Container'
 import InfiniteSlider from '~/components/InfiniteSlider'
+import { Container } from '~/components/ui/Container'
 
 export default function BlogHomePage() {
   return (
