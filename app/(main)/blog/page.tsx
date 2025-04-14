@@ -2,6 +2,7 @@ import Balancer from 'react-wrap-balancer'
 
 import { SocialLink } from '~/components/links/SocialLink'
 import { Container } from '~/components/ui/Container'
+import { getLatestBlogPosts } from '~/sanity/queries'
 
 import { BlogPosts } from './BlogPosts'
 
@@ -22,7 +23,9 @@ export const metadata = {
 }
 
 // TODO: add pagination or infinite scroll
-export default function BlogPage() {
+export default async function BlogPage() {
+  await getLatestBlogPosts({ limit: 1 })
+
   return (
     <Container className="mt-16 sm:mt-24">
       <header className="max-w-2xl">

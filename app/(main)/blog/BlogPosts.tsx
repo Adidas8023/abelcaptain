@@ -1,5 +1,3 @@
-import { JSX } from 'react'
-
 import { kvKeys } from '~/config/kv'
 import { env } from '~/env.mjs'
 import { redis } from '~/lib/redis'
@@ -11,7 +9,7 @@ interface BlogPostsProps {
   limit?: number
 }
 
-export async function BlogPosts({ limit = 5 }: BlogPostsProps): Promise<JSX.Element> {
+export async function BlogPosts({ limit = 5 }: BlogPostsProps) {
   const posts = await getLatestBlogPosts({ limit, forDisplay: true }) || []
   const postIdKeys = posts.map(({ _id }) => kvKeys.postViews(_id))
 
@@ -25,10 +23,10 @@ export async function BlogPosts({ limit = 5 }: BlogPostsProps): Promise<JSX.Elem
   }
 
   return (
-    <div className="contents">
+    <>
       {posts.map((post, idx) => (
         <BlogPostCard post={post} views={views[idx] ?? 0} key={post._id} />
       ))}
-    </div>
+    </>
   )
 }
