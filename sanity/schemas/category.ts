@@ -12,6 +12,7 @@ export default defineType({
       name: 'title',
       title: '名称',
       type: 'string',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -19,12 +20,15 @@ export default defineType({
       type: 'slug',
       options: {
         source: 'title',
+        maxLength: 96,
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'description',
       title: '简单介绍',
       type: 'text',
+      validation: (Rule) => Rule.required().min(10).max(200),
     }),
   ],
 })

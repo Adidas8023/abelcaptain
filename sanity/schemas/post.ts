@@ -89,8 +89,7 @@ export default defineType({
       name: 'description',
       title: '简介',
       type: 'text',
-      rows: 3,
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().min(10).max(300),
     }),
     defineField({
       name: 'body',
