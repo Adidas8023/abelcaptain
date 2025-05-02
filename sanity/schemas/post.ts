@@ -61,11 +61,12 @@ export default defineType({
       name: 'categories',
       title: '分类',
       type: 'array',
+      validation: (Rule) => Rule.required(),
       of: [
-        defineArrayMember({
+        {
           type: 'reference',
           to: [{ type: 'category' }],
-        }),
+        },
       ],
     }),
     defineField({
