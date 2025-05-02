@@ -35,6 +35,11 @@ export type PostDetail = Post & {
   related?: Post[]
 }
 
+const categoryReference = defineArrayMember({
+  type: 'reference',
+  to: [{ type: 'category' }],
+})
+
 export default defineType({
   name: 'post',
   title: '文章',
@@ -57,16 +62,13 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
+    {
       name: 'categories',
       title: '分类',
       type: 'array',
       validation: (Rule) => Rule.required(),
-      of: [defineArrayMember({
-        type: 'reference',
-        to: [{ type: 'category' }],
-      })],
-    }),
+      of: [categoryReference],
+    },
     defineField({
       name: 'publishedAt',
       title: '发布时间',
