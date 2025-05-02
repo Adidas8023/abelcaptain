@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 import { z } from 'zod'
 
 import { PencilSwooshIcon } from '~/assets'
@@ -62,12 +62,10 @@ export default defineType({
       title: '分类',
       type: 'array',
       of: [
-        {
+        defineArrayMember({
           type: 'reference',
           to: [{ type: 'category' }],
-          title: '分类引用',
-          name: 'categoryReference',
-        },
+        }),
       ],
     }),
     defineField({
@@ -97,14 +95,15 @@ export default defineType({
       name: 'body',
       title: '内容',
       type: 'blockContent',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'readingTime',
       title: '阅读时长（分钟）',
-      type: readingTimeType.name,
+      type: 'number',
       validation: (Rule) => Rule.required(),
-      options: {
-        source: 'body',
+      components: {
+        input: readingTimeType.components.input,
       },
     }),
     defineField({
