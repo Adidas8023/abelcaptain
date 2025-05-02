@@ -62,12 +62,10 @@ export default defineType({
       title: '分类',
       type: 'array',
       validation: (Rule) => Rule.required(),
-      of: [
-        {
-          type: 'reference',
-          to: [{ type: 'category' }],
-        },
-      ],
+      of: [defineArrayMember({
+        type: 'reference',
+        to: [{ type: 'category' }],
+      })],
     }),
     defineField({
       name: 'publishedAt',
