@@ -61,7 +61,14 @@ export default defineType({
       name: 'categories',
       title: '分类',
       type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }],
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'category' }],
+          title: '分类引用',
+          name: 'categoryReference',
+        },
+      ],
     }),
     defineField({
       name: 'publishedAt',
