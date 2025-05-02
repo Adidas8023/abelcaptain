@@ -7,8 +7,24 @@ import { AnimatedContent } from '~/app/components/AnimatedContent'
 import { PencilSwooshIcon } from '~/assets'
 import InfiniteSlider from '~/components/InfiniteSlider'
 import { Container } from '~/components/ui/Container'
+import { kvKeys } from '~/config/kv'
+import { env } from '~/env.mjs'
+import { redis } from '~/lib/redis'
+import { getLatestBlogPosts } from '~/sanity/queries'
 
-export default function BlogHomePage() {
+async function getPageViews(slugs: string[]) {
+  if (env.VERCEL_ENV === 'production') {
+    const views = await redis.mget<number[]>(...slugs.map((slug) => kvKeys.postViews(slug)))
+    return views.map((v) => v ?? 0)
+  }
+  return slugs.map(() => Math.floor(Math.random() * 1000))
+}
+
+export default async function BlogHomePage() {
+  const posts = (await getLatestBlogPosts({ limit: 4 })) ?? []
+  const slugs = posts.map((post) => post.slug ?? '')
+  const views = await getPageViews(slugs)
+
   return (
     <>
       <Hero />
@@ -34,7 +50,7 @@ export default function BlogHomePage() {
                 <span className="ml-2">近期文章</span>
               </h2>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <BlogPosts limit={4} />
+                <BlogPosts limit={4} initialPosts={posts} initialViews={views} />
               </div>
             </div>
           </div>
