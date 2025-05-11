@@ -195,13 +195,21 @@ export function Hero() {
             </div>
             
             {/* 图片 */}
-            <div className="relative">
+            <div className="relative group w-[240px] h-[320px]">
               <Image
                 src="/hero-image.png"
                 alt="Abel船长"
                 width={240}
                 height={320}
-                className="relative drop-shadow-xl transition-transform duration-300"
+                className="absolute top-0 left-0 drop-shadow-xl transition-opacity duration-300 group-hover:opacity-0"
+                priority
+              />
+              <Image
+                src="/hero-image-hover.png"
+                alt="Abel船长"
+                width={240}
+                height={320}
+                className="absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-xl"
                 priority
               />
             </div>
