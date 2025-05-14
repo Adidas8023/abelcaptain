@@ -13,6 +13,13 @@ import { media } from 'sanity-plugin-media'
 import { apiVersion, dataset, projectId } from './sanity/env'
 import { schema } from './sanity/schema'
 
+interface SanityDocument {
+  _type: string;
+  slug?: {
+    current: string;
+  };
+}
+
 export default defineConfig({
   basePath: '/studio',
   projectId,
@@ -25,4 +32,13 @@ export default defineConfig({
     media(),
     codeInput(),
   ],
+  document: {
+    productionUrl: async (prev: string, context: { document: SanityDocument }) => {
+      const { document } = context
+      if (document._type === 'post') {
+        return Promise.resolve(`${window.location.origin}/blog/${document.slug?.current}`)
+      }
+      return Promise.resolve(prev)
+    },
+  },
 })
