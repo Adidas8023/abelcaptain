@@ -1,0 +1,19 @@
+# www.abelcaptain.com robots.txt
+
+# 允许所有搜索引擎爬虫
+User-agent: *
+
+# 禁止爬取的路径
+Disallow: /studio/         # Sanity Studio 管理界面
+Disallow: /api/           # API 端点
+Disallow: /_next/        # Next.js 内部文件
+Disallow: /static/       # 静态资源文件
+
+# 允许爬取的特定路径
+Allow: /static/images/   # 允许爬取图片
+
+# 站点地图
+Sitemap: https://www.abelcaptain.com/sitemap.xml
+
+# 爬取频率建议
+Crawl-delay: 0.5
