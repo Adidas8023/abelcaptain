@@ -1,4 +1,4 @@
-# www.abelcaptain.com robots.txt
+# abelcaptain.com robots.txt
 
 # 允许所有搜索引擎爬虫
 User-agent: *
@@ -13,7 +13,7 @@ Disallow: /static/       # 静态资源文件
 Allow: /static/images/   # 允许爬取图片
 
 # 站点地图
-Sitemap: https://www.abelcaptain.com/sitemap.xml
+Sitemap: https://abelcaptain.com/sitemap.xml
 
 # 爬取频率建议
-Crawl-delay: 0.5
+Crawl-delay: 1
